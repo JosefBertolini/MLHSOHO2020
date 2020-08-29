@@ -3,8 +3,26 @@ const GitHub = require("../services/github");
 
 const router = express.Router();
 
+const { Pool, Client } = require('pg');
+
 router.get("/requesting", async function(req, res) {
   const { query = "" } = req.query;
+
+  // console.log("banana");
+
+  // let pool = new Pool({
+  //     user: 'postgres',
+  //     host: 'https://localhost:5432/',
+  //     database: 'postgres',
+  //     password: 'postgres',
+  //     port: 5432,
+  // });
+
+  // pool.query("\\dt", (err, res) => {
+  //   console.log(err, res);
+  //   pool.end();
+  // });
+
 
   if (!req.session.access_token) {
     return res.render("tutorial/index");
@@ -20,6 +38,9 @@ router.get("/requesting", async function(req, res) {
     tutorial2: results2.slice(0, 5),
     query: query
   });
+
+  
+
 });
 
 module.exports = router;
