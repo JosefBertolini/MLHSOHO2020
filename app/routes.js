@@ -5,6 +5,7 @@ module.exports.registerRoutes = app => {
   app.use("/", controllers.home);
   app.use("/auth", controllers.auth);
   app.use("/tutorial", controllers.tutorial);
+  app.use("/teams", controllers.teams);
 };
 
 module.exports.registerErrorHandlers = app => {
