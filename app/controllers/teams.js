@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+
 const { fileURLToPath } = require('url');
 
 const router = express.Router();
@@ -23,18 +24,22 @@ router.get("/", function(req, res) {
             break;
     }
     var members = "<div class=\"hackathon-title\">" + hack_name + ":</div><div class=\"free-hackers\">\n";
-    fs.readFile(".\\app\\resources\\hackers.txt", "utf-8", (err, file) => {
+    fs.readFile(".\\app\\resources\\hackers.json", "utf-8", (err, file) => {
         if(err) throw err;
-    
-        file = file.split('\r\n');
-        for (var line in file) {
-            line = file[line].split(', ');
-            if (line[1] == hack_name && line[2] == "false") {
-                members += "<p>" + line[0] + "</p>\n";
+        var hackerArray = JSON.parse(file)["hackers"];
+        // file = file.split('\r\n');
+        for (var hacker in hackerArray) {
+            hacker = hackerArray[hacker];
+            //console.log(hacker);
+            console.log(hacker["hackathon"]);
+            if (hacker["hackathon"] == hack_name && hacker["has_team"] == "false") {
+                members += "<p>" + hacker["name"] + "<br>Favorite Language: " + hacker["favorite_languages"] + "</p>\n";
             }
         }
         members += '</div>'
         
+        //console.log(members);
+
         fs.readFile(".\\app\\templates\\teams\\index.html", "utf-8", (err2, data) => {
             if (!err2)
             {
