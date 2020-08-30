@@ -1,7 +1,6 @@
 import random, os
 
 def main():
-    # file = open("C:/Users/susuk/Projects/MLHSOHO2020/apps/resources/hackers.txt")
     file = open(os.path.dirname(os.path.realpath(__file__)) + "/hackers.json", 'w')
     dictionary = {"Suns Out Hacks Out" : 0, "MedHacks": 0, "First Day Back Hacks":0}
     dictionary2 = {"Suns Out Hacks Out" : 0, "MedHacks": 0, "First Day Back Hacks":0}
