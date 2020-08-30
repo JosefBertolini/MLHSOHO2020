@@ -7,9 +7,9 @@ const router = express.Router();
 
 
 router.get("/", function(req, res) {
-    console.log(req.query);
+    // console.log(req.query);
 
-    var members = "<ul class=\"free-hackers\">\n";
+    
     var hack_name = "";
     switch(req.query["hackathon"]) {
         case 'SunsOutHacksOut':
@@ -22,6 +22,7 @@ router.get("/", function(req, res) {
             hack_name = "MedHacks";
             break;
     }
+    var members = "<div class=\"hackathon-title\">" + hack_name + ":</div><div class=\"free-hackers\">\n";
     fs.readFile(".\\app\\resources\\hackers.txt", "utf-8", (err, file) => {
         if(err) throw err;
     
@@ -29,10 +30,10 @@ router.get("/", function(req, res) {
         for (var line in file) {
             line = file[line].split(', ');
             if (line[1] == hack_name && line[2] == "false") {
-                members += "<li>" + line[0] + "</li>\n";
+                members += "<p>" + line[0] + "</p>\n";
             }
         }
-        members += '</ul>'
+        members += '</div>'
         
         fs.readFile(".\\app\\templates\\teams\\index.html", "utf-8", (err2, data) => {
             if (!err2)
