@@ -27,11 +27,9 @@ router.get("/", function(req, res) {
     fs.readFile(".\\app\\resources\\hackers.json", "utf-8", (err, file) => {
         if(err) throw err;
         var hackerArray = JSON.parse(file)["hackers"];
-        // file = file.split('\r\n');
         for (var hacker in hackerArray) {
             id = hacker;
             hacker = hackerArray[hacker];
-            //console.log(hacker);
             console.log(hacker["hackathon"]);
             if (hacker["hackathon"] == hack_name && hacker["has_team"] == "false") {
                 members += "<p id=p"+id+">" + hacker["name"] + "<br>Favorite Language: " + hacker["favorite_languages"] + "<br><button type=\"button\">Invite</button>" +"</p>\n";
@@ -75,31 +73,29 @@ router.get("/", function(req, res) {
                 }
             }
 
+            members += "</div>"
+            console.log(members);
 
-        })
-
-        members += "</div>"
-        //console.log(members);
-
-        fs.readFile(".\\app\\templates\\teams\\index.html", "utf-8", (err2, data) => {
-            if (!err2)
-            {
-                fs.readFile(".\\app\\templates\\partials\\header.html", "utf-8", (err3, head) => {
-                    if (!err3)
-                    {
-                        res.send(head + data + members);
-                    }
-                    else 
-                    {
-                        res.send(data + members);
-                    }
-                }); 
-            }
-            else
-            {
-                res.send(members);
-            }
-        })
+            fs.readFile(".\\app\\templates\\teams\\index.html", "utf-8", (err2, data) => {
+                if (!err2)
+                {
+                    fs.readFile(".\\app\\templates\\partials\\header.html", "utf-8", (err3, head) => {
+                        if (!err3)
+                        {
+                            res.send(head + data + members);
+                        }
+                        else 
+                        {
+                            res.send(data + members);
+                        }
+                    }); 
+                }
+                else
+                {
+                    res.send(members);
+                }
+            });
+        });
     });
 });
 
