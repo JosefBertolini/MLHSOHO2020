@@ -29,11 +29,12 @@ router.get("/", function(req, res) {
         var hackerArray = JSON.parse(file)["hackers"];
         // file = file.split('\r\n');
         for (var hacker in hackerArray) {
+            id = hacker;
             hacker = hackerArray[hacker];
             //console.log(hacker);
             console.log(hacker["hackathon"]);
             if (hacker["hackathon"] == hack_name && hacker["has_team"] == "false") {
-                members += "<p>" + hacker["name"] + "<br>Favorite Language: " + hacker["favorite_languages"] + "</p>\n";
+                members += "<p id=p"+id+">" + hacker["name"] + "<br>Favorite Language: " + hacker["favorite_languages"] + "<br><button type=\"button\">Invite</button>" +"</p>\n";
             }
         }
         members += '</div>'
