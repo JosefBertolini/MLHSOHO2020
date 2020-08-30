@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/", function(req, res) {
     console.log(req.query);
 
-    var members = "<ul>\n";
+    var members = "<ul class=\"free-hackers\">\n";
     var hack_name = "";
     switch(req.query["hackathon"]) {
         case 'SunsOutHacksOut':
@@ -22,24 +22,17 @@ router.get("/", function(req, res) {
             hack_name = "MedHacks";
             break;
     }
-    //console.log(path.relative(__filename, "C:\\Users\\J03da\\Projects\\Repos\\mlh-soho-2020\\mlh-hackathon-nodejs-starter\\app\\resources\\hackers.txt"));
     fs.readFile(".\\app\\resources\\hackers.txt", "utf-8", (err, file) => {
-        'use-strict'
         if(err) throw err;
     
-        // console.log(file);
-
         file = file.split('\r\n');
         for (var line in file) {
             line = file[line].split(', ');
-            // console.log(line);
             if (line[1] == hack_name && line[2] == "false") {
                 members += "<li>" + line[0] + "</li>\n";
             }
         }
         members += '</ul>'
-
-        // console.log(members)
         
         fs.readFile(".\\app\\templates\\teams\\index.html", "utf-8", (err2, data) => {
             if (!err2)
@@ -53,7 +46,7 @@ router.get("/", function(req, res) {
                     {
                         res.send(data + members);
                     }
-                }) 
+                }); 
             }
             else
             {
