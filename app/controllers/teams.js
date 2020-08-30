@@ -23,7 +23,7 @@ router.get("/", function(req, res) {
             hack_name = "MedHacks";
             break;
     }
-    var members = "<div class=\"hackathon-title\">" + hack_name + ":</div><div class=\"free-hackers\">\n";
+    var members = "<div class=\"hackathon-title\">" + hack_name + ":</div><div class=\"main free-hackers\">\n";
     fs.readFile(".\\app\\resources\\hackers.json", "utf-8", (err, file) => {
         if(err) throw err;
         var hackerArray = JSON.parse(file)["hackers"];
@@ -35,7 +35,7 @@ router.get("/", function(req, res) {
                 members += "<p id=p"+id+">" + hacker["name"] + "<br>Favorite Language: " + hacker["favorite_languages"] + "<br><button type=\"button\">Invite</button>" +"</p>\n";
             }
         }
-        members += '</div><div id="teams">'
+        members += '</div><div id="teams" class="main">'
         
         fs.readFile(".\\app\\resources\\teams.json", "utf-8", (errT, teams) => {
             if (err) throw err;
@@ -61,7 +61,7 @@ router.get("/", function(req, res) {
             {
                 team = teams[team_num];
                 if (team.length > 0) {
-                    members += '<div id="team'+team_num+'">';
+                    members += '<div class="teamblock" id="team'+team_num+'">';
 
                     for (var hacker in team)
                     {
